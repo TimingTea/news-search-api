@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 const User = require('../models/user');
 const NotFoundError = require('../errors/not-found');
 const UnauthorizedError = require('../errors/unauthorized');
-// const { secretkey } = require('../middlewares/auth');
+const { secretkey } = require('../middlewares/auth');
 
 const createUser = (req, res, next) => {
   const {
