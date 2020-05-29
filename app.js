@@ -3,7 +3,6 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const helmet = require('helmet');
-// const { celebrate, Joi, errors } = require('celebrate');
 const cookieParser = require('cookie-parser');
 const { celebrate, Joi, errors } = require('celebrate');
 
@@ -25,9 +24,7 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
 });
 
 app.use(bodyParser.json());
-
 app.use(helmet());
-app.use(cookieParser());
 app.use(requestLogger);
 app.use(cookieParser());
 
@@ -54,7 +51,7 @@ app.use('/articles', articleRouter);
 app.use(errorLogger);
 app.use(errors());
 
-// eslint-disable-next-line
+
 app.use((err, req, res, next) => {
   const { statusCode = 500, message } = err;
 
@@ -65,6 +62,7 @@ app.use((err, req, res, next) => {
         ? 'На сервере произошла ошибка'
         : message,
     });
+  next();
 });
 
 app.listen(PORT, () => {

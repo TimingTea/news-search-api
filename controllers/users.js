@@ -7,17 +7,17 @@ const { secretkey } = require('../middlewares/auth');
 
 const createUser = (req, res, next) => {
   const {
-    name, about, avatar, email, password,
+    name, email, password,
   } = req.body;
-
 
   bcrypt.hash(password, 10)
     .then((hash) => User.create({
-      name, about, avatar, email, password: hash,
+      name, email, password: hash,
     }))
     .then((user) => res.status(201).send(user.omitPrivate()))
     .catch(next);
 };
+
 const login = (req, res, next) => {
   const { email, password } = req.body;
 
@@ -42,12 +42,12 @@ const login = (req, res, next) => {
 };
 
 const getUser = (req, res, next) => {
-  User.findById(req.params.userId)
+  User.findById(req.user._id)
     .then((user) => {
       if (!user) {
         throw new NotFoundError('Пользователя с таким id не существует');
       }
-      return res.send(user);
+      return res.send({ name: user.name, email: user.email });
     })
     .catch(next);
 };
