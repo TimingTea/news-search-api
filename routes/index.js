@@ -23,6 +23,7 @@ router.post('/signup', celebrate({
   }),
 }), createUser);
 
+
 router.use(auth);
 router.use(errors());
 router.use('/users', userRouter);
