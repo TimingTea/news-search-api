@@ -16,7 +16,7 @@ const { login, createUser } = require('./controllers/users');
 const { PORT = 3000 } = process.env;
 const app = express();
 
-mongoose.connect('mongodb://localhost:27017/mestodb', {
+mongoose.connect('mongodb://localhost:27017/news-search', {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,

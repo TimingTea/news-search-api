@@ -15,14 +15,20 @@ const createArticle = (req, res, next) => {
 };
 
 const getArticle = (req, res, next) => {
-  Article.find({})
-    .then((article) => res.send(article))
+  const owner = req.user._id;
+  Article.find({ owner })
+    .then((article) => {
+      if (article.length === 0) {
+        throw new NotFoundError('У вас пока нет сохранённых статей');
+      }
+      res.send(article);
+    })
     .catch(next);
 };
 
 const deleteArticle = (req, res, next) => {
   Article.findById(req.params.articleId)
-    .orFail(new NotFoundError(`Карточки с таким id  ${req.params.articleId} не существует`))
+    .orFail(new NotFoundError(`Статьи с таким id  ${req.params.articleId} не существует`))
     .then((article) => {
       if (!article.owner.equals(req.user._id)) {
         throw new ForbiddenError('Доступ запрещен, нельзя удалить карточку другого пользователя');
