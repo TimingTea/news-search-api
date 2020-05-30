@@ -31,7 +31,7 @@ const deleteArticle = (req, res, next) => {
     .orFail(new NotFoundError(`Статьи с таким id  ${req.params.articleId} не существует`))
     .then((article) => {
       if (!article.owner.equals(req.user._id)) {
-        throw new ForbiddenError('Доступ запрещен, нельзя удалить карточку другого пользователя');
+        throw new ForbiddenError('Доступ запрещен, нельзя удалить статью другого пользователя');
       }
       return Article.deleteOne(article)
         .then(() => res.send({ data: article }));
