@@ -25,8 +25,8 @@ const userSchema = new mongoose.Schema({
     select: false,
   },
 });
-// eslint-disable-next-line
-userSchema.statics.findUserByCredentials = function (email, password) {
+
+userSchema.statics.findUserByCredentials = function findUserByCredentials(email, password) {
   return this.findOne({ email }).select('+password')
     .then((user) => {
       if (!user) {
@@ -41,8 +41,8 @@ userSchema.statics.findUserByCredentials = function (email, password) {
         });
     });
 };
-// eslint-disable-next-line
-userSchema.methods.omitPrivate = function () {
+
+userSchema.methods.omitPrivate = function omitPrivate() {
   const obj = this.toObject();
   delete obj.password;
   return obj;
