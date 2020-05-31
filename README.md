@@ -1,9 +1,9 @@
 # news-search-api
-**Версия 1.0.0**
-**Ссылка на сервер:** 
-https://api.news-search.gq
-https://www.api.news-search.gq
-**Описание:**
+### Версия 1.0.0
+### Ссылка на сервер:
+- https://api.news-search.gq
+- https://www.api.news-search.gq
+### Описание:
 API для приложения news-search.gq
 
 ## API может :
