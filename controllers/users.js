@@ -15,7 +15,7 @@ const createUser = (req, res, next) => {
       name, email, password: hash,
     }))
     .then((user) => res.status(201).send(user.omitPrivate()))
-    .catch(next);
+    .catch(() => next(new UnauthorizedError('Эта почта уже используется')));
 };
 
 const login = (req, res, next) => {
