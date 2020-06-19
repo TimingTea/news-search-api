@@ -24,5 +24,5 @@ app.use(router);
 app.use(limiter);
 
 app.listen(PORT, () => {
-  console.log(`Сервер запущен, приложение слушает порт: ${PORT}`);
+  console.log(`backend Сервер запущен, приложение слушает порт: ${PORT}`);
 });
