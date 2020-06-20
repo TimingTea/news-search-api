@@ -47,6 +47,16 @@ const login = (req, res, next) => {
     });
 };
 
+const logout = (req, res, next) => {
+  res.clearCookie('jwt', {
+    httpOnly: true,
+  });
+
+  res.status(200).send({ status: '200', message: 'Встал и ушел' });
+  next();
+};
+
+
 const getUser = (req, res, next) => {
   User.findById(req.user._id)
     .then((user) => {
@@ -62,4 +72,5 @@ module.exports = {
   createUser,
   login,
   getUser,
+  logout,
 };

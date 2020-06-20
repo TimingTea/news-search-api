@@ -1,6 +1,6 @@
 const express = require('express');
 const { celebrate, Joi, errors } = require('celebrate');
-const { login, createUser } = require('../controllers/users');
+const { login, createUser, logout } = require('../controllers/users');
 const { auth } = require('../middlewares/auth');
 const articleRouter = require('./articles');
 const userRouter = require('./users');
@@ -14,6 +14,7 @@ router.post('/signin', celebrate({
     password: Joi.string().required().min(5),
   }),
 }), login);
+
 
 router.post('/signup', celebrate({
   body: Joi.object().keys({
@@ -30,6 +31,7 @@ router.use('/users', userRouter);
 router.use('/articles', articleRouter);
 router.use(requestLogger);
 router.use(errorLogger);
+router.use('/logout', logout);
 
 router.use((err, req, res, next) => {
   const { statusCode = 500, message } = err;
