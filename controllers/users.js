@@ -63,7 +63,7 @@ const getUser = (req, res, next) => {
       if (!user) {
         throw new NotFoundError('Пользователя с таким id не существует');
       }
-      return res.send({ name: user.name, email: user.email });
+      return res.send({ status: '200', data: user });
     })
     .catch(next);
 };
