@@ -24,10 +24,30 @@ const createUser = (req, res, next) => {
     .catch(() => next(new UnauthorizedError('Эта почта уже используется')));
 };
 
-const login = (req, res, next) => {
-  const { email, password } = req.body;
+// const login = (req, res, next) => {
+//   const { email, password } = req.body;
 
-  return User.findUserByCredentials(email, password)
+//   return User.findUserByCredentials(email, password)
+//     .then((user) => {
+//       const token = jwt.sign(
+//         { _id: user._id },
+//         secretkey,
+//         { expiresIn: '7d' },
+//       );
+
+//       res
+//         .cookie('jwt', token, {
+//           maxAge: 7 * 24 * 3600,
+//           httpOnly: true,
+//         })
+//         .end();
+// })
+// .catch((err) => {
+//   next(new UnauthorizedError(err.message));
+// });
+// };
+const login = (req, res, next) => {
+  User.findUserByCredentials(req.body.email, req.body.password)
     .then((user) => {
       const token = jwt.sign(
         { _id: user._id },
@@ -35,12 +55,14 @@ const login = (req, res, next) => {
         { expiresIn: '7d' },
       );
 
+      res.cookie('jwt', token, {
+        maxAge: 3600000 * 24 * 7,
+        httpOnly: true,
+      });
+
       res
-        .cookie('jwt', token, {
-          maxAge: 7 * 24 * 3600,
-          httpOnly: true,
-        })
-        .end();
+        .status(200)
+        .send({ status: '200', message: 'messages.authorization.isSuccessful' });
     })
     .catch((err) => {
       next(new UnauthorizedError(err.message));
