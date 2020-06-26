@@ -1,3 +1,4 @@
+const escape = require('escape-html');
 const Article = require('../models/article');
 const NotFoundError = require('../errors/not-found');
 const ForbiddenError = require('../errors/forbidden');
