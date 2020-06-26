@@ -3,26 +3,37 @@ const NotFoundError = require('../errors/not-found');
 const ForbiddenError = require('../errors/forbidden');
 
 const createArticle = (req, res, next) => {
-  const {
-    keyword, title, text, date, source, link, image,
-  } = req.body;
-  const owner = req.user._id;
   Article.create({
-    keyword, title, text, date, source, link, image, owner,
+    keyword: escape(req.body.keyword),
+    title: escape(req.body.title),
+    text: escape(req.body.text),
+    date: escape(req.body.date),
+    source: escape(req.body.source),
+    link: req.body.link,
+    image: req.body.image,
+    owner: req.user._id,
   })
-    .then((article) => res.send(article))
-    .catch(next);
+    .then((article) => {
+      res.status(201).send({
+        status: '201',
+        data: {
+          id: article._id,
+          keyword: article.keyword,
+          title: article.title,
+          text: article.text,
+          date: article.date,
+          source: article.source,
+          link: article.link,
+          image: article.image,
+        },
+      });
+    })
+    .catch((err) => next(new NotFoundError(err.message)));
 };
 
 const getArticle = (req, res, next) => {
-  const owner = req.user._id;
-  Article.find({ owner })
-    .then((article) => {
-      if (article.length === 0) {
-        throw new NotFoundError('У вас пока нет сохранённых статей');
-      }
-      res.send(article);
-    })
+  Article.find({ owner: req.user._id })
+    .then((articles) => res.send({ status: '200', data: articles }))
     .catch(next);
 };
 
