@@ -10,7 +10,7 @@ const limiter = require('./config/limiter');
 
 const { PORT = 3000 } = process.env;
 const app = express();
-app.use(cors({ origin: ['http://localhost:8080', 'http://localhost:8081', 'https://api.news-search.gq', 'https://www.api.news-search.gq'], credentials: true }));
+app.use(cors({ origin: ['http://localhost:8080', 'http://localhost:8081', 'https://api.news-search.gq', 'https://www.api.news-search.gq', 'https://timingtea.github.io'], credentials: true }));
 
 mongoose.connect('mongodb://localhost:27017/news-search', {
   useNewUrlParser: true,
