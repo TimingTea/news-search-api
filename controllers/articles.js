@@ -46,7 +46,7 @@ const deleteArticle = (req, res, next) => {
         throw new ForbiddenError('Доступ запрещен, нельзя удалить статью другого пользователя');
       }
       return Article.deleteOne(article)
-        .then(() => res.send({ data: article }));
+        .then(() => res.send({ status: '200', message: 'Удалил карточку' }));
     })
     .catch(next);
 };
