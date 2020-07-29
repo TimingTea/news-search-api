@@ -1,12 +1,12 @@
-# news-search-api
-### Версия 1.0.0
+# Дипломная работа Яндекс.Практикум. Backend news-search-api
+
 ### Ссылка на сервер:
 - https://api.news-search.gq
 - https://www.api.news-search.gq
 ### Описание:
 API для приложения news-search.gq
 
-## API может :
+## Функционал API :
 * GET-запрос /users/me возвращает информацию о пользователе (email и имя);
 * GET-запрос /articles возвращает все сохранённые пользователем статьи;
 * POST-запрос /articles создаёт статью с переданными в теле keyword, title, text, date, source, link и image;
